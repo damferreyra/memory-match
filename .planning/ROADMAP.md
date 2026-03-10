@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Bootstrap** - Project scaffold, toolchain, dev server confirmed running
 - [x] **Phase 2: Boot + Menu Scenes** - BootScene and MenuScene complete, registry initialized
-- [ ] **Phase 3: Grid** - Config constants, pure game-logic functions, 16 face-down cards on canvas
+- [x] **Phase 3: Grid** - Config constants, pure game-logic functions, 16 face-down cards on canvas
 - [ ] **Phase 4: Flip Mechanics** - Peek phase, click-to-flip tween, match/mismatch evaluation loop
 - [ ] **Phase 5: HUD + Scoring** - Round/score/timer HUD rendered, scoring rules applied, game-over event
 - [ ] **Phase 6: Round System** - UIScene overlay, round-complete and game-over panels, 3-round progression
@@ -58,8 +58,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 03-01-PLAN.md — Config files (cards, grid, rounds, ui) + game-logic.ts + Vitest tests (TDD)
-- [ ] 03-02-PLAN.md — GameScene renders 4x4 grid of face-down cards (human-verify checkpoint)
+- [x] 03-01-PLAN.md — Config files (cards, grid, rounds, ui) + game-logic.ts + Vitest tests (TDD)
+- [x] 03-02-PLAN.md — GameScene renders 4x4 grid of face-down cards (human-verify checkpoint)
 
 ### Phase 4: Flip Mechanics
 **Goal**: Players can flip cards and the full match/mismatch evaluation loop works correctly
@@ -117,7 +117,7 @@ Phases execute in numeric order: 3 → 4 → 5 → 6
 |-------|----------------|--------|-----------|
 | 1. Bootstrap | 1/1 | Complete | 2026-03-10 |
 | 2. Boot + Menu Scenes | 1/1 | Complete | 2026-03-10 |
-| 3. Grid | 1/2 | In Progress|  |
+| 3. Grid | 2/2 | Complete | 2026-03-10 |
 | 4. Flip Mechanics | 0/2 | Not started | - |
 | 5. HUD + Scoring | 0/2 | Not started | - |
 | 6. Round System | 0/3 | Not started | - |
