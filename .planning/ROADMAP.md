@@ -55,11 +55,11 @@ Plans:
   1. All config constants exist in `config/cards.ts`, `config/grid.ts`, `config/rounds.ts`, `config/ui.ts` and are consumed without magic numbers anywhere in game code
   2. `npm run test` passes for `game-logic.test.ts` and `config/grid.test.ts`, confirming `generateCardPairs()` produces exactly 16 symbolIds (0–7 each appearing twice) and `getCardPosition()` returns correct pixel coords for all 16 indices
   3. Opening the game and clicking PLAY shows 16 face-down cards arranged in a 4x4 grid visually centered on the 1024x768 canvas
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 03-01: Config files and pure game-logic module with Vitest tests
-- [ ] 03-02: GameScene renders 4x4 grid of face-down cards
+- [ ] 03-01-PLAN.md — Config files (cards, grid, rounds, ui) + game-logic.ts + Vitest tests (TDD)
+- [ ] 03-02-PLAN.md — GameScene renders 4x4 grid of face-down cards (human-verify checkpoint)
 
 ### Phase 4: Flip Mechanics
 **Goal**: Players can flip cards and the full match/mismatch evaluation loop works correctly
