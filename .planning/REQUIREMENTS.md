@@ -9,10 +9,10 @@ Requirements for the complete playable game (Phases 3–6). Phases 1–2 already
 
 ### Grid
 
-- [ ] **GRID-01**: Config files exist: `config/cards.ts`, `config/grid.ts`, `config/rounds.ts`, `config/ui.ts` with all constants defined per MEMORY_GAME_PLAN.md
-- [ ] **GRID-02**: Pure function `generateCardPairs(8)` returns 16 shuffled symbolIds (each 0–7 appears exactly twice)
-- [ ] **GRID-03**: Pure function `getCardPosition(index, layout)` returns correct pixel coordinates for all 16 card indices
-- [ ] **GRID-04**: Unit tests pass: `game-logic.test.ts` and `config/grid.test.ts` (via `npm run test`)
+- [x] **GRID-01**: Config files exist: `config/cards.ts`, `config/grid.ts`, `config/rounds.ts`, `config/ui.ts` with all constants defined per MEMORY_GAME_PLAN.md
+- [x] **GRID-02**: Pure function `generateCardPairs(8)` returns 16 shuffled symbolIds (each 0–7 appears exactly twice)
+- [x] **GRID-03**: Pure function `getCardPosition(index, layout)` returns correct pixel coordinates for all 16 card indices
+- [x] **GRID-04**: Unit tests pass: `game-logic.test.ts` and `config/grid.test.ts` (via `npm run test`)
 - [ ] **GRID-05**: 16 face-down cards rendered in a 4×4 grid, centered on the 1024×768 canvas
 
 ### Flip
@@ -68,10 +68,10 @@ Deferred to Phase 7 polish. Not in current roadmap phases.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| GRID-01 | Phase 3 | Pending |
-| GRID-02 | Phase 3 | Pending |
-| GRID-03 | Phase 3 | Pending |
-| GRID-04 | Phase 3 | Pending |
+| GRID-01 | Phase 3 | Complete |
+| GRID-02 | Phase 3 | Complete |
+| GRID-03 | Phase 3 | Complete |
+| GRID-04 | Phase 3 | Complete |
 | GRID-05 | Phase 3 | Pending |
 | FLIP-01 | Phase 4 | Pending |
 | FLIP-02 | Phase 4 | Pending |
