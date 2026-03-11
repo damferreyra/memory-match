@@ -31,17 +31,6 @@ export const TIME_BONUS_PER_SECOND = 10;
 export const BG_GRADIENT_TOP = 0x1a1a2e;
 export const BG_GRADIENT_BOTTOM = 0x16213e;
 
-// Theme colors for CTAs and panels (used by menu, HUD accents, overlays)
-export const CTA_PRIMARY_COLOR = 0xe74c3c;
-export const CTA_PRIMARY_COLOR_HOVER = 0xff6b6b;
-export const PANEL_BG_COLOR = 0x1b1b33;
-export const PANEL_BORDER_COLOR = 0xffffff;
-
-// Card elevation
-export const CARD_SHADOW_COLOR = 0x000000;
-export const CARD_SHADOW_ALPHA = 0.35;
-export const CARD_SHADOW_OFFSET_Y = 6;
-
 // HUD positional layout (within the 70px HUD strip)
 export const HUD_TEXT_Y = 35; // vertical center of HUD strip
 export const HUD_ROUND_X = 20; // left edge for round label

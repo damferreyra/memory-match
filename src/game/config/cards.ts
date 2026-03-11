@@ -24,4 +24,4 @@ export const SYMBOL_FONT_SIZE = 52;
 export const CARD_QUESTION_FONT_SIZE = 48; // '?' shown on card back
 export const CARD_BORDER_WIDTH = 2; // stroke width for card outlines
 export const CARD_FACE_BG = 0xffffff; // white face background
-export const CARD_FACE_BORDER = 0xbfc9d6;
+export const CARD_FACE_BORDER = 0xcccccc;
