@@ -86,11 +86,11 @@ Plans:
   2. The timer bar turns red when fewer than 10 seconds remain
   3. Matching a pair increases the score by 100 base + streak bonus (50 per consecutive match, max +200); missing a pair resets the streak to 0
   4. When the countdown reaches 0, card interaction stops and a `'gameOver'` event is emitted
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 05-01: HUD layout and live countdown timer with urgent color change
-- [ ] 05-02: Scoring logic (base points, streak bonus) and game-over event
+- [ ] 05-01-PLAN.md — HUD positional constants + buildHud() method (round label, score display, timer bar, countdown, separator)
+- [ ] 05-02-PLAN.md — Live timer (startTimer/onTick), scoring integration in evaluatePair(), game-over freeze
 
 ### Phase 6: Round System
 **Goal**: A complete 3-round game loop runs end-to-end: win a round, see score breakdown, proceed or end game
@@ -102,7 +102,7 @@ Plans:
   3. Timer expiry shows a game-over panel with total score and a "Try Again" button that resets registry and returns to MenuScene
   4. Round 2 starts with a 45s timer and 1.0s peek; Round 3 starts with a 30s timer and 0.5s peek
   5. Shutting down GameScene (on restart or game-over) cancels all active tweens and pending mismatch timers
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
 - [ ] 06-01: Win condition, time-bonus calculation, roundComplete and gameOver events
