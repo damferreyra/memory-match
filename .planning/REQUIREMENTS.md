@@ -53,6 +53,13 @@ Deferred to Phase 7 polish. Not in current roadmap phases.
 - **POLISH-04**: Particle burst on successful match (Phaser built-in ParticleEmitter)
 - **POLISH-05**: Animated score counter — tween the score number up when it changes
 
+### UI & UX Polish (Phase 7)
+
+- **UX-01**: Cards feel tactile — each card has a soft drop shadow on the grid background plus hover/press feedback (scale and/or position) without changing gameplay rules.
+- **UX-02**: HUD feels like a polished mobile HUD — score is displayed in a coin-style pill with a subtle pop animation on score change; urgent timer state adds a brief shake or pulse animation instead of only a color switch.
+- **UX-03**: Overlay panels (round-complete and game-over) ease in and out using scale/alpha tweens with a dimmed backdrop, and their primary buttons have clear press feedback (scale/brightness) matching the reference style.
+- **UX-04**: Menu screen feels alive — title and PLAY button animate on first load, and the PLAY button has hover/press micro-animations consistent with in-game CTAs.
+
 ## Out of Scope
 
 | Feature | Reason |
@@ -90,6 +97,10 @@ Deferred to Phase 7 polish. Not in current roadmap phases.
 | ROUND-04 | Phase 6 | Complete |
 | ROUND-05 | Phase 6 | Complete |
 | ROUND-06 | Phase 6 | Complete |
+| UX-01 | Phase 7 | Complete |
+| UX-02 | Phase 7 | Pending |
+| UX-03 | Phase 7 | Pending |
+| UX-04 | Phase 7 | Complete |
 
 **Coverage:**
 - v1 requirements: 22 total
