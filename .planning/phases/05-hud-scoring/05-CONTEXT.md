@@ -14,39 +14,37 @@ Add a live HUD strip to GameScene: round label, score display, proportionally sh
 ## Implementation Decisions
 
 ### HUD layout
-- HUD occupies the top 70px strip (y=0 to y=70), set to HUD_DEPTH=20
-- Left side (x≈20): "Round X / 3" label, SCORE_FONT_SIZE=22px, left-aligned
-- Right side (x≈GAME_WIDTH-20): "Score: XXXXX", same font size, right-aligned
-- Center: timer bar (TIMER_BAR_WIDTH=400, TIMER_BAR_HEIGHT=18) horizontally centered at x=GAME_WIDTH/2, vertically centered in strip (y≈26)
-- "0:XX" countdown text sits directly below the bar center, small font (≈16px)
+- Left / Center / Right arrangement in the 70px strip:
+  - **Left**: "Round X / 3" label, left-aligned
+  - **Center**: timer bar (TIMER_BAR_WIDTH=400, TIMER_BAR_HEIGHT=18) horizontally centered; "0:XX" countdown text directly below the bar center
+  - **Right**: "Score: XXXXX", right-aligned
 - A thin horizontal separator line at y=70 divides HUD from game grid
 - All HUD positions added as named constants to config/ui.ts — no inline magic numbers
+- HUD objects set to HUD_DEPTH=20
 
-### Score state
-- `currentStreak` and `roundScore` are private fields on GameScene (not in registry)
-- On each match: `roundScore += computeMatchScore(currentStreak)`, then `currentStreak++`
-- On each mismatch: `currentStreak = 0`
-- Score text updates immediately (no animation — Phase 7 handles animated counter POLISH-05)
-- TOTAL_SCORE in registry stays at 0 until Phase 6 commits it at round end
-- `roundScore` is what the HUD "Score:" display shows during the round
+### Score display
+- HUD shows **running total** (cumulative across all rounds), not round-only score
+- `TOTAL_SCORE` in the Phaser registry is the single source of truth — updated immediately on each match
+- `currentStreak` tracked as a private GameScene field; resets to 0 on mismatch
+- Score text updates **immediately** when a match is confirmed (not after tween completes)
+- Phase 6 reads TOTAL_SCORE from registry for the round-complete panel breakdown
 
-### Timer mechanism
-- Use `this.time.addEvent({ delay: 1000, repeat: timeLimit - 1, callback: onTick })` for clean 1s intervals
-- `onTick` decrements `timeRemaining`, updates the timer bar width and text, applies urgent color when <10s
-- Store the `TimerEvent` as a private field so it can be cancelled in `handleShutdown()`
+### Timer behavior
+- Timer starts **after the peek phase ends** (in the `delayedCall` callback, once cards flip back face-down)
+- Uses `this.time.addEvent({ delay: 1000, repeat: timeLimit - 1, callback: onTick })` for clean 1s intervals
+- `onTick` decrements `timeRemaining`, updates bar width and "0:XX" text, applies `TIMER_COLOR_URGENT` when `timeRemaining < TIMER_URGENT_THRESHOLD` (10s)
 - Timer bar fill width = `(timeRemaining / timeLimit) * TIMER_BAR_WIDTH`
+- Store the `TimerEvent` as a private field — cancelled in `handleShutdown()`
 
 ### Game-over freeze
-- When `timeRemaining` hits 0: cancel the timer event, set `this.isChecking = true` permanently (blocks all future clicks), call `this.events.emit('gameOver')` on the scene
-- UIScene (Phase 6) subscribes to this event — no other action needed from GameScene
-- Do NOT call `setInteractive(false)` on cards — the isChecking guard is sufficient and cleaner to unwind
+- When `timeRemaining` hits 0: cancel timer event, set `this.isChecking = true` permanently, emit `this.events.emit('gameOver')`
+- `isChecking = true` is sufficient to block all future card clicks — no need for `setInteractive(false)` on all 16 containers
 
 ### Claude's Discretion
-- Exact font family for HUD text (Arial, sans-serif — same as cards)
-- Whether round label uses bold weight
-- Exact stroke/fill style for the separator line
-- Exact HUD y-coordinates for text baselines (within the 70px strip)
+- Exact font sizes and weights for HUD labels (within SCORE_FONT_SIZE=22 baseline)
 - Timer bar background rect color (dark, low-alpha)
+- Exact pixel positions within the 70px strip for text baselines
+- Whether to add a HUD background rect or leave it transparent
 
 </decisions>
 
@@ -54,29 +52,30 @@ Add a live HUD strip to GameScene: round label, score display, proportionally sh
 ## Existing Code Insights
 
 ### Reusable Assets
-- `computeMatchScore(streak)` in `game-logic.ts` — takes current streak, returns base + bonus (capped). Call with `currentStreak` before incrementing.
-- `computeTimeBonus(seconds)` in `game-logic.ts` — used in Phase 6 at round end, not Phase 5
-- `ROUND_CONFIGS[round - 1].timeLimit` — gives starting seconds for the timer
-- `REGISTRY_KEYS.CURRENT_ROUND` — read at GameScene create() to know which round config to use
+- `computeMatchScore(streak)` in `game-logic.ts` — takes current streak before incrementing, returns base + bonus (capped). Call with `currentStreak`, then increment streak.
+- `REGISTRY_KEYS.TOTAL_SCORE` — update this in registry on every match for cumulative tracking
+- `REGISTRY_KEYS.CURRENT_ROUND` — read at `create()` to get `ROUND_CONFIGS[round - 1].timeLimit`
+- `ROUND_CONFIGS[round - 1].timeLimit` — starting seconds for the timer
 
 ### Established Patterns
-- `this.add.graphics()` + `fillStyle()` + `fillRect()` — for timer bar background and fill
+- `this.add.graphics()` + `fillStyle()` + `fillRect()` — for timer bar background and fill rects
 - `this.add.text(x, y, str, { fontSize, fontFamily, color })` with `.setOrigin()` — for HUD labels
-- `this.time.delayedCall()` — already used for mismatch; `time.addEvent` is the same API for repeating
-- `this.events.on('shutdown', this.handleShutdown, this)` — timer event must be added to handleShutdown cleanup
+- `this.time.delayedCall()` — used in startPeekPhase(); `time.addEvent` is the same API for repeating
+- `this.events.on('shutdown', this.handleShutdown, this)` — timer TimerEvent must be cancelled here
 
 ### Integration Points
-- `evaluatePair()` is where streak tracking and score increments plug in — match branch adds score, mismatch branch resets streak
-- `handleShutdown()` must cancel the timer TimerEvent (add alongside mismatchTimer cleanup)
-- `startPeekPhase()` sets `isChecking=true` during reveal — timer should NOT start until peek ends (start timer in the delayedCall callback, after cards flip back)
+- `evaluatePair()` match branch: `const earned = computeMatchScore(this.currentStreak); this.currentStreak++; this.registry.inc(TOTAL_SCORE, earned);` then update score text
+- `evaluatePair()` mismatch branch: `this.currentStreak = 0`
+- `startPeekPhase()` delayedCall callback: start timer here, after cards flip back
+- `handleShutdown()`: cancel timer event alongside mismatchTimer cleanup
 
 </code_context>
 
 <specifics>
 ## Specific Ideas
 
-- No specific visual references provided — standard clean HUD is appropriate
-- User skipped discussion, deferring all layout/implementation choices to Claude
+- "Score: XXXXX" shows the cumulative total, not round-only — consistent with how most games display score
+- Timer starts after peek so players aren't penalized for time they can't act
 
 </specifics>
 
