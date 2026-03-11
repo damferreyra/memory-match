@@ -39,6 +39,9 @@ import {
 	HUD_COUNTDOWN_Y,
 	HUD_BAR_BG_COLOR,
 	HUD_BAR_BG_ALPHA,
+	CARD_SHADOW_COLOR,
+	CARD_SHADOW_ALPHA,
+	CARD_SHADOW_OFFSET_Y,
 } from '../config/ui';
 import { type CardData, computeMatchScore, computeTimeBonus, generateCardPairs, isMatch } from '../game-logic';
 
@@ -204,6 +207,11 @@ export class GameScene extends Phaser.Scene {
 			const container = this.add.container(pos.x, pos.y);
 			container.setDepth(CARD_DEPTH);
 
+			const shadow = this.add
+				.rectangle(0, CARD_SHADOW_OFFSET_Y, CARD_WIDTH, CARD_HEIGHT, CARD_SHADOW_COLOR, CARD_SHADOW_ALPHA)
+				.setOrigin(0.5);
+			shadow.setScale(0.96, 0.96);
+
 			// Back face (visible by default)
 			const back = this.add.graphics();
 			back.fillStyle(CARD_BACK_COLOR);
@@ -264,12 +272,47 @@ export class GameScene extends Phaser.Scene {
 				.setOrigin(0.5)
 				.setVisible(false);
 
+			container.addAt(shadow, 0);
 			container.add([back, questionMark, front, symbolText]);
 
 			// Wire up interactivity — container needs a size before setInteractive
 			container.setSize(CARD_WIDTH, CARD_HEIGHT);
 			container.setInteractive({ useHandCursor: true });
+			container.on('pointerover', () => {
+				if (this.cards[i].state === 'faceDown' && !this.isChecking) {
+					this.tweens.add({
+						targets: container,
+						duration: 120,
+						scaleX: 1.04,
+						scaleY: 1.04,
+						y: container.y - 4,
+						ease: 'Quad.easeOut',
+					});
+				}
+			});
+			container.on('pointerout', () => {
+				if (this.cards[i].state === 'faceDown') {
+					this.tweens.add({
+						targets: container,
+						duration: 120,
+						scaleX: 1,
+						scaleY: 1,
+						y: pos.y,
+						ease: 'Quad.easeIn',
+					});
+				}
+			});
 			container.on('pointerdown', () => {
+				if (this.cards[i].state !== 'faceDown' || this.isChecking) return;
+				this.tweens.add({
+					targets: container,
+					duration: 80,
+					scaleX: 0.97,
+					scaleY: 0.97,
+					y: pos.y + 2,
+					yoyo: true,
+					ease: 'Quad.easeOut',
+				});
 				this.handleCardClick(i);
 			});
 
