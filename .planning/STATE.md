@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: completed
-stopped_at: Completed 05-01-PLAN.md
-last_updated: "2026-03-11T14:51:41.899Z"
+stopped_at: Checkpoint 05-02 — awaiting human-verify approval
+last_updated: "2026-03-11T15:46:41.251Z"
 last_activity: 2026-03-11 — Phase 4 Plan 02 complete (evaluatePair with match lock, mismatch flip-back, full game loop — human-verify approved)
 progress:
   total_phases: 6
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 7
-  completed_plans: 6
+  completed_plans: 7
   percent: 50
 ---
 
@@ -57,6 +57,7 @@ Progress: [█████░░░░░] 50% (Phase 3 complete, 4 of ~8 total 
 | Phase 04-flip-mechanics P01 | 7min | 1 tasks | 1 files |
 | Phase 04-flip-mechanics P02 | 6min | 2 tasks | 1 files |
 | Phase 05-hud-scoring P01 | 10min | 3 tasks | 2 files |
+| Phase 05-hud-scoring P02 | 15min | 2 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -84,6 +85,9 @@ Recent decisions affecting current work:
 - [Phase 05-hud-scoring]: HUD_SCORE_X uses literal 1004 (GAME_WIDTH - 20) to avoid import cycles between config files
 - [Phase 05-hud-scoring]: timerBarFill origin (0, 0.5) at left edge — Plan 02 shrinks width rightward without repositioning
 - [Phase 05-hud-scoring]: buildHud() called between drawBackground() and buildGrid() in create() to maintain correct depth z-order
+- [Phase 05-hud-scoring]: startTimer() called in startPeekPhase callback not create() — peek window does not consume player countdown time
+- [Phase 05-hud-scoring]: timerIsUrgent flag prevents calling setFillStyle on every tick — only transitions once crossing 10s threshold
+- [Phase 05-hud-scoring]: onTimeExpired() sets isChecking=true permanently to block all future card clicks after timer expires
 
 ### Pending Todos
 
@@ -95,6 +99,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-11T14:51:33.233Z
-Stopped at: Completed 05-01-PLAN.md
+Last session: 2026-03-11T15:46:41.248Z
+Stopped at: Checkpoint 05-02 — awaiting human-verify approval
 Resume file: None

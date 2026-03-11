@@ -26,11 +26,11 @@ Requirements for the complete playable game (Phases 3–6). Phases 1–2 already
 ### HUD & Scoring
 
 - [x] **HUD-01**: HUD displays round label ("Round X / 3"), score ("Score: XXXXX"), timer bar, and timer text ("0:XX")
-- [ ] **HUD-02**: Countdown timer starts at `timeLimit` seconds for the current round and decrements each second
-- [ ] **HUD-03**: Timer bar shrinks proportionally; turns red (`TIMER_COLOR_URGENT`) when fewer than 10 seconds remain
-- [ ] **HUD-04**: Matching a pair awards 100 base points + streak bonus (50 per consecutive match, capped at +200)
-- [ ] **HUD-05**: Missing a pair resets the streak counter to 0
-- [ ] **HUD-06**: Timer expiry emits `'gameOver'` event and stops all card interaction
+- [x] **HUD-02**: Countdown timer starts at `timeLimit` seconds for the current round and decrements each second
+- [x] **HUD-03**: Timer bar shrinks proportionally; turns red (`TIMER_COLOR_URGENT`) when fewer than 10 seconds remain
+- [x] **HUD-04**: Matching a pair awards 100 base points + streak bonus (50 per consecutive match, capped at +200)
+- [x] **HUD-05**: Missing a pair resets the streak counter to 0
+- [x] **HUD-06**: Timer expiry emits `'gameOver'` event and stops all card interaction
 
 ### Round System
 
@@ -79,11 +79,11 @@ Deferred to Phase 7 polish. Not in current roadmap phases.
 | FLIP-04 | Phase 4 | Complete |
 | FLIP-05 | Phase 4 | Complete |
 | HUD-01 | Phase 5 | Complete |
-| HUD-02 | Phase 5 | Pending |
-| HUD-03 | Phase 5 | Pending |
-| HUD-04 | Phase 5 | Pending |
-| HUD-05 | Phase 5 | Pending |
-| HUD-06 | Phase 5 | Pending |
+| HUD-02 | Phase 5 | Complete |
+| HUD-03 | Phase 5 | Complete |
+| HUD-04 | Phase 5 | Complete |
+| HUD-05 | Phase 5 | Complete |
+| HUD-06 | Phase 5 | Complete |
 | ROUND-01 | Phase 6 | Pending |
 | ROUND-02 | Phase 6 | Pending |
 | ROUND-03 | Phase 6 | Pending |
