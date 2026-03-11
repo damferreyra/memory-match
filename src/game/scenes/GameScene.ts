@@ -18,7 +18,26 @@ import {
 import type { Symbol as CardSymbol } from '../config/cards';
 import { GRID_LAYOUT, getCardPosition } from '../config/grid';
 import { ROUND_CONFIGS } from '../config/rounds';
-import { CARD_DEPTH, BG_GRADIENT_TOP, BG_GRADIENT_BOTTOM, FLIP_DURATION_MS, MISMATCH_HOLD_MS } from '../config/ui';
+import {
+	CARD_DEPTH,
+	HUD_DEPTH,
+	HUD_HEIGHT,
+	TIMER_BAR_WIDTH,
+	TIMER_BAR_HEIGHT,
+	TIMER_COLOR_NORMAL,
+	SCORE_FONT_SIZE,
+	BG_GRADIENT_TOP,
+	BG_GRADIENT_BOTTOM,
+	FLIP_DURATION_MS,
+	MISMATCH_HOLD_MS,
+	HUD_TEXT_Y,
+	HUD_ROUND_X,
+	HUD_SCORE_X,
+	HUD_BAR_Y,
+	HUD_COUNTDOWN_Y,
+	HUD_BAR_BG_COLOR,
+	HUD_BAR_BG_ALPHA,
+} from '../config/ui';
 import { type CardData, generateCardPairs, isMatch } from '../game-logic';
 
 export class GameScene extends Phaser.Scene {
@@ -27,6 +46,12 @@ export class GameScene extends Phaser.Scene {
 	private isChecking = false;
 	private flippedIndices: number[] = [];
 	private mismatchTimer: Phaser.Time.TimerEvent | null = null;
+	// biome-ignore lint/correctness/noUnusedPrivateClassMembers: assigned in buildHud(), read in Plan 02 timer/scoring methods
+	private scoreText!: Phaser.GameObjects.Text;
+	// biome-ignore lint/correctness/noUnusedPrivateClassMembers: assigned in buildHud(), read in Plan 02 timer/scoring methods
+	private countdownText!: Phaser.GameObjects.Text;
+	// biome-ignore lint/correctness/noUnusedPrivateClassMembers: assigned in buildHud(), read in Plan 02 timer/scoring methods
+	private timerBarFill!: Phaser.GameObjects.Rectangle;
 
 	constructor() {
 		super({ key: SCENE_KEYS.GAME });
@@ -39,10 +64,76 @@ export class GameScene extends Phaser.Scene {
 		this.flippedIndices = [];
 		this.mismatchTimer = null;
 		this.drawBackground();
+		this.buildHud();
 		const symbolIds = generateCardPairs(SYMBOLS.length);
 		this.buildGrid(symbolIds);
 		this.events.on('shutdown', this.handleShutdown, this);
 		this.startPeekPhase();
+	}
+
+	private buildHud(): void {
+		const round = this.registry.get(REGISTRY_KEYS.CURRENT_ROUND) as number;
+		const totalScore = this.registry.get(REGISTRY_KEYS.TOTAL_SCORE) as number;
+		const { timeLimit } = ROUND_CONFIGS[round - 1];
+		const mins = Math.floor(timeLimit / 60);
+		const secs = timeLimit % 60;
+
+		// Separator line (draw once — never redrawn)
+		const sep = this.add.graphics();
+		sep.lineStyle(1, 0x444466, 0.6);
+		sep.beginPath();
+		sep.moveTo(0, HUD_HEIGHT);
+		sep.lineTo(GAME_WIDTH, HUD_HEIGHT);
+		sep.strokePath();
+		sep.setDepth(HUD_DEPTH);
+
+		// Round label — left-aligned
+		this.add
+			.text(HUD_ROUND_X, HUD_TEXT_Y, `Round ${round} / 3`, {
+				fontSize: `${SCORE_FONT_SIZE}px`,
+				fontFamily: 'Arial, sans-serif',
+				color: '#ffffff',
+			})
+			.setOrigin(0, 0.5)
+			.setDepth(HUD_DEPTH);
+
+		// Score text — right-aligned, stored as field for live updates
+		this.scoreText = this.add
+			.text(HUD_SCORE_X, HUD_TEXT_Y, `Score: ${totalScore}`, {
+				fontSize: `${SCORE_FONT_SIZE}px`,
+				fontFamily: 'Arial, sans-serif',
+				color: '#ffffff',
+			})
+			.setOrigin(1, 0.5)
+			.setDepth(HUD_DEPTH);
+
+		// Timer bar background (centered, full width)
+		this.add
+			.rectangle(GAME_WIDTH / 2, HUD_BAR_Y, TIMER_BAR_WIDTH, TIMER_BAR_HEIGHT, HUD_BAR_BG_COLOR, HUD_BAR_BG_ALPHA)
+			.setDepth(HUD_DEPTH)
+			.setOrigin(0.5, 0.5);
+
+		// Timer bar fill — origin (0, 0.5) so it shrinks from the right
+		this.timerBarFill = this.add
+			.rectangle(
+				GAME_WIDTH / 2 - TIMER_BAR_WIDTH / 2,
+				HUD_BAR_Y,
+				TIMER_BAR_WIDTH,
+				TIMER_BAR_HEIGHT,
+				TIMER_COLOR_NORMAL,
+			)
+			.setDepth(HUD_DEPTH)
+			.setOrigin(0, 0.5);
+
+		// Countdown text — centered below bar
+		this.countdownText = this.add
+			.text(GAME_WIDTH / 2, HUD_COUNTDOWN_Y, `${mins}:${secs.toString().padStart(2, '0')}`, {
+				fontSize: `${SCORE_FONT_SIZE}px`,
+				fontFamily: 'Arial, sans-serif',
+				color: '#ffffff',
+			})
+			.setOrigin(0.5, 0)
+			.setDepth(HUD_DEPTH);
 	}
 
 	private drawBackground(): void {
