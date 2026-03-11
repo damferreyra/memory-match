@@ -74,6 +74,9 @@ export class GameScene extends Phaser.Scene {
 		this.buildHud();
 		const symbolIds = generateCardPairs(SYMBOLS.length);
 		this.buildGrid(symbolIds);
+		if (!this.scene.isActive(SCENE_KEYS.UI)) {
+			this.scene.launch(SCENE_KEYS.UI);
+		}
 		this.events.on('shutdown', this.handleShutdown, this);
 		this.startPeekPhase();
 	}
