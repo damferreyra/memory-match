@@ -26,3 +26,7 @@ export const STREAK_BONUS_PER_MATCH = 50;
 export const STREAK_BONUS_MAX = 200;
 export const BASE_MATCH_SCORE = 100;
 export const TIME_BONUS_PER_SECOND = 10;
+
+// Background
+export const BG_GRADIENT_TOP = 0x1a1a2e;
+export const BG_GRADIENT_BOTTOM = 0x16213e;
