@@ -74,7 +74,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 04-01-PLAN.md — Flip state machine: container interactivity, peek phase, click-to-flip tween, isChecking guard
+- [x] 04-01-PLAN.md — Flip state machine: container interactivity, peek phase, click-to-flip tween, isChecking guard
 - [ ] 04-02-PLAN.md — Match lock with tint, mismatch flip-back with delayedCall, evaluatePair() implementation
 
 ### Phase 5: HUD + Scoring
