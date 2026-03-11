@@ -1,0 +1,38 @@
+{
+    "name": "memory-match",
+    "description": "A Phaser 3 memory matching card game with 3 rounds of increasing difficulty.",
+    "version": "0.1.0",
+    "type": "module",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/phaserjs/template-vite.git"
+    },
+    "author": "Phaser Studio <support@phaser.io> (https://phaser.io/)",
+    "license": "MIT",
+    "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
+    "bugs": {
+        "url": "https://github.com/phaserjs/template-vite/issues"
+    },
+    "homepage": "https://github.com/phaserjs/template-vite#readme",
+    "scripts": {
+        "dev": "node log.js dev & vite --config vite/config.dev.mjs",
+        "build": "node log.js build & vite build --config vite/config.prod.mjs",
+        "dev-nolog": "vite --config vite/config.dev.mjs",
+        "build-nolog": "vite build --config vite/config.prod.mjs",
+        "type-check": "tsc --noEmit",
+        "lint": "biome lint src/",
+        "format": "biome format src/ --write",
+        "check": "biome check src/ --write",
+        "test": "vitest run"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "^2.4.4",
+        "terser": "^5.39.0",
+        "typescript": "~5.7.2",
+        "vite": "^6.3.1",
+        "vitest": "^4.0.18"
+    },
+    "dependencies": {
+        "phaser": "^3.90.0"
+    }
+}

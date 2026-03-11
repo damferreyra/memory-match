@@ -3,6 +3,10 @@ import { GAME_WIDTH, GAME_HEIGHT, REGISTRY_KEYS, SCENE_KEYS } from '../constants
 import { OVERLAY_BACKDROP_ALPHA, OVERLAY_DEPTH, OVERLAY_PANEL_HEIGHT, OVERLAY_PANEL_WIDTH } from '../config/ui';
 import { ROUND_CONFIGS } from '../config/rounds';
 
+const PLATFORM_RETURN_URL = typeof import.meta !== 'undefined'
+	? (import.meta as unknown as { env?: { VITE_PLATFORM_URL?: string } }).env?.VITE_PLATFORM_URL
+	: undefined;
+
 type RoundCompletePayload = {
 	round: number;
 	roundScore: number;
@@ -136,6 +140,7 @@ export class UIScene extends Phaser.Scene {
 				this.registry.set(REGISTRY_KEYS.CURRENT_ROUND, 1);
 				this.registry.set(REGISTRY_KEYS.TOTAL_SCORE, 0);
 				this.registry.set(REGISTRY_KEYS.TOTAL_ROUNDS, ROUND_CONFIGS.length);
+				this.scene.stop(SCENE_KEYS.GAME);
 				this.scene.start(SCENE_KEYS.MENU);
 			} else {
 				this.scene.stop(SCENE_KEYS.GAME);
@@ -143,7 +148,55 @@ export class UIScene extends Phaser.Scene {
 			}
 		});
 
-		panel.add([panelBg, titleText, roundScoreText, totalScoreText, buttonBg, buttonText, buttonZone]);
+		if (PLATFORM_RETURN_URL) {
+			const mainX = -buttonWidth / 2 - 10;
+			buttonBg.setX(mainX);
+			buttonText.setX(mainX);
+			buttonZone.setPosition(mainX, buttonY);
+		}
+
+		const children: Phaser.GameObjects.GameObject[] = [
+			panelBg,
+			titleText,
+			roundScoreText,
+			totalScoreText,
+			buttonBg,
+			buttonText,
+			buttonZone,
+		];
+
+		if (PLATFORM_RETURN_URL) {
+			const platformX = buttonWidth / 2 + 10;
+			const platformButtonBg = this.add.rectangle(platformX, buttonY, buttonWidth, buttonHeight, 0x34495e, 1);
+			platformButtonBg.setStrokeStyle(2, 0xffffff, 0.9);
+
+			const platformButtonText = this.add
+				.text(platformX, buttonY, 'Back to Platform', {
+					fontSize: '20px',
+					fontFamily: 'Arial Black, Arial, sans-serif',
+					color: '#ffffff',
+				})
+				.setOrigin(0.5);
+
+			const platformButtonZone = this.add
+				.zone(platformX, buttonY, buttonWidth, buttonHeight)
+				.setInteractive({ useHandCursor: true });
+			platformButtonZone.on('pointerover', () => {
+				platformButtonBg.setFillStyle(0x3d566e, 1);
+			});
+			platformButtonZone.on('pointerout', () => {
+				platformButtonBg.setFillStyle(0x34495e, 1);
+			});
+			platformButtonZone.on('pointerdown', () => {
+				if (PLATFORM_RETURN_URL) {
+					window.location.href = PLATFORM_RETURN_URL;
+				}
+			});
+
+			children.push(platformButtonBg, platformButtonText, platformButtonZone);
+		}
+
+		panel.add(children);
 		this.activePanel = panel;
 	}
 
@@ -204,10 +257,58 @@ export class UIScene extends Phaser.Scene {
 			this.registry.set(REGISTRY_KEYS.CURRENT_ROUND, 1);
 			this.registry.set(REGISTRY_KEYS.TOTAL_SCORE, 0);
 			this.registry.set(REGISTRY_KEYS.TOTAL_ROUNDS, ROUND_CONFIGS.length);
+			this.scene.stop(SCENE_KEYS.GAME);
 			this.scene.start(SCENE_KEYS.MENU);
 		});
 
-		panel.add([panelBg, titleText, totalScoreText, buttonBg, buttonText, buttonZone]);
+		if (PLATFORM_RETURN_URL) {
+			const mainX = -buttonWidth / 2 - 10;
+			buttonBg.setX(mainX);
+			buttonText.setX(mainX);
+			buttonZone.setPosition(mainX, buttonY);
+		}
+
+		const children: Phaser.GameObjects.GameObject[] = [
+			panelBg,
+			titleText,
+			totalScoreText,
+			buttonBg,
+			buttonText,
+			buttonZone,
+		];
+
+		if (PLATFORM_RETURN_URL) {
+			const platformX = buttonWidth / 2 + 10;
+			const platformButtonBg = this.add.rectangle(platformX, buttonY, buttonWidth, buttonHeight, 0x34495e, 1);
+			platformButtonBg.setStrokeStyle(2, 0xffffff, 0.9);
+
+			const platformButtonText = this.add
+				.text(platformX, buttonY, 'Back to Platform', {
+					fontSize: '20px',
+					fontFamily: 'Arial Black, Arial, sans-serif',
+					color: '#ffffff',
+				})
+				.setOrigin(0.5);
+
+			const platformButtonZone = this.add
+				.zone(platformX, buttonY, buttonWidth, buttonHeight)
+				.setInteractive({ useHandCursor: true });
+			platformButtonZone.on('pointerover', () => {
+				platformButtonBg.setFillStyle(0x3d566e, 1);
+			});
+			platformButtonZone.on('pointerout', () => {
+				platformButtonBg.setFillStyle(0x34495e, 1);
+			});
+			platformButtonZone.on('pointerdown', () => {
+				if (PLATFORM_RETURN_URL) {
+					window.location.href = PLATFORM_RETURN_URL;
+				}
+			});
+
+			children.push(platformButtonBg, platformButtonText, platformButtonZone);
+		}
+
+		panel.add(children);
 		this.activePanel = panel;
 	}
 }

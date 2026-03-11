@@ -1,0 +1,24 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background-color: #1a1a2e;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	overflow: hidden;
+}
+
+#app {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+canvas {
+	display: block;
+}
