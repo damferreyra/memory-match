@@ -182,7 +182,8 @@ export class GameScene extends Phaser.Scene {
 			this.timerEvent = null;
 		}
 		this.isChecking = true;
-		this.events.emit('gameOver');
+		const totalScore = this.registry.get(REGISTRY_KEYS.TOTAL_SCORE) as number;
+		this.events.emit('gameOver', { totalScore });
 	}
 
 	private drawBackground(): void {
@@ -424,6 +425,39 @@ export class GameScene extends Phaser.Scene {
 			return;
 		}
 		this.handleRoundWin();
+	}
+
+	private handleRoundWin(): void {
+		if (this.timerEvent) {
+			this.timerEvent.remove(false);
+			this.timerEvent = null;
+		}
+
+		const round = this.registry.get(REGISTRY_KEYS.CURRENT_ROUND) as number;
+		const totalRounds = this.registry.get(REGISTRY_KEYS.TOTAL_ROUNDS) as number | undefined;
+		const isLastRound = (totalRounds ?? ROUND_CONFIGS.length) === round;
+
+		const timeBonus = computeTimeBonus(this.timeRemaining);
+		if (timeBonus > 0) {
+			this.roundScore += timeBonus;
+			this.registry.inc(REGISTRY_KEYS.TOTAL_SCORE, timeBonus);
+			this.scoreText.setText(`Score: ${this.registry.get(REGISTRY_KEYS.TOTAL_SCORE) as number}`);
+		}
+
+		const totalScore = this.registry.get(REGISTRY_KEYS.TOTAL_SCORE) as number;
+
+		if (!isLastRound) {
+			this.registry.set(REGISTRY_KEYS.CURRENT_ROUND, round + 1);
+		}
+
+		this.isChecking = true;
+
+		this.events.emit('roundComplete', {
+			round,
+			roundScore: this.roundScore,
+			totalScore,
+			isLastRound,
+		});
 	}
 
 	private handleShutdown(): void {
