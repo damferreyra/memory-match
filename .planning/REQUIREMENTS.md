@@ -98,7 +98,7 @@ Deferred to Phase 7 polish. Not in current roadmap phases.
 | ROUND-05 | Phase 6 | Complete |
 | ROUND-06 | Phase 6 | Complete |
 | UX-01 | Phase 7 | Complete |
-| UX-02 | Phase 7 | Pending |
+| UX-02 | Phase 7 | Complete |
 | UX-03 | Phase 7 | Pending |
 | UX-04 | Phase 7 | Complete |
 
