@@ -18,7 +18,6 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 4: Flip Mechanics** - Peek phase, click-to-flip tween, match/mismatch evaluation loop (completed 2026-03-11)
 - [x] **Phase 5: HUD + Scoring** - Round/score/timer HUD rendered, scoring rules applied, game-over event (completed 2026-03-11)
 - [ ] **Phase 6: Round System** - UIScene overlay, round-complete and game-over panels, 3-round progression
-- [ ] **Phase 7: UI/UX Polish** - Visual styling, micro-animations, and overlay/menu juiciness (no new gameplay rules)
 
 ## Phase Details
 
@@ -109,22 +108,6 @@ Plans:
 - [x] 06-01-PLAN.md — Win condition, time-bonus calculation, roundComplete and gameOver events
 - [ ] 06-02-PLAN.md — UIScene overlay with round-complete and game-over panels
 
-### Phase 7: UI/UX Polish
-**Goal**: Make the game feel like a small, polished mobile title through visual styling and micro-animations, without changing the core rules.
-**Depends on**: Phase 6
-**Requirements**: UX-01, UX-02, UX-03, UX-04
-**Success Criteria** (what must be TRUE):
-  1. Cards feel tactile on the grid with soft shadows and responsive hover/press states, but card states and rules remain unchanged.
-  2. The HUD presents score and timer with clear hierarchy, coin-style score display, and animated feedback when score changes or timer becomes urgent.
-  3. Round-complete and game-over overlays ease in/out with scale/alpha tweens over a dimmed backdrop, and their CTAs have clear press/hover feedback.
-  4. The menu screen title and PLAY button animate on load and interaction in a way that matches the in-game visual language.
-**Plans**: 3 plans
-
-Plans:
-- [ ] 07-01-PLAN.md — Theme tokens and base card/menu styling
-- [ ] 07-02-PLAN.md — In-play card and HUD juiciness
-- [ ] 07-03-PLAN.md — Overlay/menu transitions and visual QA checkpoint
-
 ## Progress
 
 **Execution Order:**
@@ -138,4 +121,3 @@ Phases execute in numeric order: 3 → 4 → 5 → 6
 | 4. Flip Mechanics | 2/2 | Complete   | 2026-03-11 |
 | 5. HUD + Scoring | 2/2 | Complete   | 2026-03-11 |
 | 6. Round System | 1/2 | In Progress | - |
-| 7. UI/UX Polish | 0/3 | Not started | - |
