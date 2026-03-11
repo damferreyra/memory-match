@@ -175,6 +175,14 @@ export class GameScene extends Phaser.Scene {
 		if (!this.timerIsUrgent && this.timeRemaining < TIMER_URGENT_THRESHOLD) {
 			this.timerIsUrgent = true;
 			this.timerBarFill.setFillStyle(TIMER_COLOR_URGENT);
+			this.tweens.add({
+				targets: this.countdownText,
+				duration: 80,
+				repeat: 3,
+				x: this.countdownText.x + 4,
+				yoyo: true,
+				ease: 'Sine.easeInOut',
+			});
 		}
 
 		if (this.timeRemaining <= 0) {
@@ -449,6 +457,14 @@ export class GameScene extends Phaser.Scene {
 			this.registry.inc(REGISTRY_KEYS.TOTAL_SCORE, earned);
 			this.roundScore += earned;
 			this.scoreText.setText(`Score: ${this.registry.get(REGISTRY_KEYS.TOTAL_SCORE) as number}`);
+			this.tweens.add({
+				targets: this.scoreText,
+				duration: 160,
+				scaleX: 1.12,
+				scaleY: 1.12,
+				yoyo: true,
+				ease: 'Quad.easeOut',
+			});
 			this.checkForRoundCompletion();
 		} else {
 			// Reset streak on mismatch
