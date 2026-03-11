@@ -71,11 +71,11 @@ Plans:
   2. Clicking a face-down card plays a scaleX tween (1→0, content swap, 0→1) and reveals the card face
   3. Clicking a third card while two are being evaluated does nothing (isChecking guard is active)
   4. Two matching cards lock face-up with a de-saturated tint; two non-matching cards flip back face-down after 800ms
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 04-01: Peek phase tween, click-to-flip tween, isChecking guard
-- [ ] 04-02: Match lock and mismatch flip-back evaluation
+- [ ] 04-01-PLAN.md — Flip state machine: container interactivity, peek phase, click-to-flip tween, isChecking guard
+- [ ] 04-02-PLAN.md — Match lock with tint, mismatch flip-back with delayedCall, evaluatePair() implementation
 
 ### Phase 5: HUD + Scoring
 **Goal**: Players can see their round, score, and remaining time at all times, and scoring rules are enforced
