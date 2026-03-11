@@ -16,7 +16,7 @@ import {
 } from '../config/cards';
 import type { Symbol as CardSymbol } from '../config/cards';
 import { GRID_LAYOUT, getCardPosition } from '../config/grid';
-import { CARD_DEPTH } from '../config/ui';
+import { CARD_DEPTH, BG_GRADIENT_TOP, BG_GRADIENT_BOTTOM } from '../config/ui';
 import { type CardData, generateCardPairs } from '../game-logic';
 
 export class GameScene extends Phaser.Scene {
@@ -37,7 +37,7 @@ export class GameScene extends Phaser.Scene {
 
 	private drawBackground(): void {
 		const bg = this.add.graphics();
-		bg.fillGradientStyle(0x1a1a2e, 0x1a1a2e, 0x16213e, 0x16213e, 1);
+		bg.fillGradientStyle(BG_GRADIENT_TOP, BG_GRADIENT_TOP, BG_GRADIENT_BOTTOM, BG_GRADIENT_BOTTOM, 1);
 		bg.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
 	}
 
