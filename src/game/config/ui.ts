@@ -30,3 +30,14 @@ export const TIME_BONUS_PER_SECOND = 10;
 // Background
 export const BG_GRADIENT_TOP = 0x1a1a2e;
 export const BG_GRADIENT_BOTTOM = 0x16213e;
+
+// HUD positional layout (within the 70px HUD strip)
+export const HUD_TEXT_Y = 35; // vertical center of HUD strip
+export const HUD_ROUND_X = 20; // left edge for round label
+export const HUD_SCORE_X = 1004; // right edge for score (= GAME_WIDTH - 20; literal avoids import cycle)
+export const HUD_BAR_Y = 28; // timer bar vertical center
+export const HUD_COUNTDOWN_Y = 46; // countdown text top (below bar center + half bar height)
+
+// Timer bar background
+export const HUD_BAR_BG_COLOR = 0x000000;
+export const HUD_BAR_BG_ALPHA = 0.4;
