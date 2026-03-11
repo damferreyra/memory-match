@@ -34,12 +34,12 @@ Requirements for the complete playable game (Phases 3–6). Phases 1–2 already
 
 ### Round System
 
-- [ ] **ROUND-01**: Winning a round (all 8 pairs matched) pauses the timer, computes time bonus (`secondsRemaining × 10`), and emits `'roundComplete'` with `{ round, roundScore, totalScore, isLastRound }`
+- [x] **ROUND-01**: Winning a round (all 8 pairs matched) pauses the timer, computes time bonus (`secondsRemaining × 10`), and emits `'roundComplete'` with `{ round, roundScore, totalScore, isLastRound }`
 - [ ] **ROUND-02**: UIScene launches as a parallel overlay from `GameScene.create()` and subscribes to `'roundComplete'` and `'gameOver'` events
 - [ ] **ROUND-03**: Round-complete panel shows score breakdown and a "Next Round" button → restarts GameScene with incremented round (or "You Win!" + "Play Again" on final round)
-- [ ] **ROUND-04**: Game-over panel shows total score and a "Try Again" button → resets registry and returns to MenuScene
-- [ ] **ROUND-05**: Round 2 uses 45s timer and 1.0s peek; Round 3 uses 30s timer and 0.5s peek
-- [ ] **ROUND-06**: GameScene registers a `'shutdown'` handler that kills all tweens and cancels any pending mismatch timers
+- [x] **ROUND-04**: Game-over panel shows total score and a "Try Again" button → resets registry and returns to MenuScene
+- [x] **ROUND-05**: Round 2 uses 45s timer and 1.0s peek; Round 3 uses 30s timer and 0.5s peek
+- [x] **ROUND-06**: GameScene registers a `'shutdown'` handler that kills all tweens and cancels any pending mismatch timers
 
 ## v2 Requirements
 
@@ -84,12 +84,12 @@ Deferred to Phase 7 polish. Not in current roadmap phases.
 | HUD-04 | Phase 5 | Complete |
 | HUD-05 | Phase 5 | Complete |
 | HUD-06 | Phase 5 | Complete |
-| ROUND-01 | Phase 6 | Pending |
+| ROUND-01 | Phase 6 | Complete |
 | ROUND-02 | Phase 6 | Pending |
 | ROUND-03 | Phase 6 | Pending |
-| ROUND-04 | Phase 6 | Pending |
-| ROUND-05 | Phase 6 | Pending |
-| ROUND-06 | Phase 6 | Pending |
+| ROUND-04 | Phase 6 | Complete |
+| ROUND-05 | Phase 6 | Complete |
+| ROUND-06 | Phase 6 | Complete |
 
 **Coverage:**
 - v1 requirements: 22 total

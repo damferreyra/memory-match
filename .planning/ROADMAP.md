@@ -105,9 +105,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 06-01: Win condition, time-bonus calculation, roundComplete and gameOver events
-- [ ] 06-02: UIScene overlay with round-complete and game-over panels
-- [ ] 06-03: Round progression (per-round config) and GameScene shutdown cleanup
+- [x] 06-01-PLAN.md — Win condition, time-bonus calculation, roundComplete and gameOver events
+- [ ] 06-02-PLAN.md — UIScene overlay with round-complete and game-over panels
 
 ## Progress
 
@@ -121,4 +120,4 @@ Phases execute in numeric order: 3 → 4 → 5 → 6
 | 3. Grid | 3/3 | Complete   | 2026-03-11 |
 | 4. Flip Mechanics | 2/2 | Complete   | 2026-03-11 |
 | 5. HUD + Scoring | 2/2 | Complete   | 2026-03-11 |
-| 6. Round System | 0/3 | Not started | - |
+| 6. Round System | 1/2 | In Progress | - |
