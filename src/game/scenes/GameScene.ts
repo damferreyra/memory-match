@@ -25,6 +25,8 @@ import {
 	TIMER_BAR_WIDTH,
 	TIMER_BAR_HEIGHT,
 	TIMER_COLOR_NORMAL,
+	TIMER_COLOR_URGENT,
+	TIMER_URGENT_THRESHOLD,
 	SCORE_FONT_SIZE,
 	BG_GRADIENT_TOP,
 	BG_GRADIENT_BOTTOM,
@@ -38,7 +40,7 @@ import {
 	HUD_BAR_BG_COLOR,
 	HUD_BAR_BG_ALPHA,
 } from '../config/ui';
-import { type CardData, generateCardPairs, isMatch } from '../game-logic';
+import { type CardData, computeMatchScore, generateCardPairs, isMatch } from '../game-logic';
 
 export class GameScene extends Phaser.Scene {
 	private cards: CardData[] = [];
@@ -46,11 +48,12 @@ export class GameScene extends Phaser.Scene {
 	private isChecking = false;
 	private flippedIndices: number[] = [];
 	private mismatchTimer: Phaser.Time.TimerEvent | null = null;
-	// biome-ignore lint/correctness/noUnusedPrivateClassMembers: assigned in buildHud(), read in Plan 02 timer/scoring methods
+	private timerEvent: Phaser.Time.TimerEvent | null = null;
+	private timeLimit = 0;
+	private timeRemaining = 0;
+	private timerIsUrgent = false;
 	private scoreText!: Phaser.GameObjects.Text;
-	// biome-ignore lint/correctness/noUnusedPrivateClassMembers: assigned in buildHud(), read in Plan 02 timer/scoring methods
 	private countdownText!: Phaser.GameObjects.Text;
-	// biome-ignore lint/correctness/noUnusedPrivateClassMembers: assigned in buildHud(), read in Plan 02 timer/scoring methods
 	private timerBarFill!: Phaser.GameObjects.Rectangle;
 
 	constructor() {
@@ -134,6 +137,48 @@ export class GameScene extends Phaser.Scene {
 			})
 			.setOrigin(0.5, 0)
 			.setDepth(HUD_DEPTH);
+	}
+
+	private startTimer(): void {
+		const round = this.registry.get(REGISTRY_KEYS.CURRENT_ROUND) as number;
+		this.timeLimit = ROUND_CONFIGS[round - 1].timeLimit;
+		this.timeRemaining = this.timeLimit;
+		this.timerIsUrgent = false;
+
+		this.timerEvent = this.time.addEvent({
+			delay: 1000,
+			repeat: this.timeLimit - 1,
+			callback: this.onTick,
+			callbackScope: this,
+		});
+	}
+
+	private onTick(): void {
+		this.timeRemaining--;
+		const mins = Math.floor(this.timeRemaining / 60);
+		const secs = this.timeRemaining % 60;
+		this.countdownText.setText(`${mins}:${secs.toString().padStart(2, '0')}`);
+
+		const fillWidth = (this.timeRemaining / this.timeLimit) * TIMER_BAR_WIDTH;
+		this.timerBarFill.setDisplaySize(Math.max(0, fillWidth), TIMER_BAR_HEIGHT);
+
+		if (!this.timerIsUrgent && this.timeRemaining < TIMER_URGENT_THRESHOLD) {
+			this.timerIsUrgent = true;
+			this.timerBarFill.setFillStyle(TIMER_COLOR_URGENT);
+		}
+
+		if (this.timeRemaining <= 0) {
+			this.onTimeExpired();
+		}
+	}
+
+	private onTimeExpired(): void {
+		if (this.timerEvent) {
+			this.timerEvent.remove(false);
+			this.timerEvent = null;
+		}
+		this.isChecking = true;
+		this.events.emit('gameOver');
 	}
 
 	private drawBackground(): void {
@@ -321,6 +366,7 @@ export class GameScene extends Phaser.Scene {
 				}
 			}
 			this.isChecking = false;
+			this.startTimer();
 		});
 	}
 
@@ -364,6 +410,10 @@ export class GameScene extends Phaser.Scene {
 		if (this.mismatchTimer) {
 			this.mismatchTimer.remove(false);
 			this.mismatchTimer = null;
+		}
+		if (this.timerEvent) {
+			this.timerEvent.remove(false);
+			this.timerEvent = null;
 		}
 	}
 }
