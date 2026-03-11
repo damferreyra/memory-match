@@ -25,7 +25,7 @@ Requirements for the complete playable game (Phases 3–6). Phases 1–2 already
 
 ### HUD & Scoring
 
-- [ ] **HUD-01**: HUD displays round label ("Round X / 3"), score ("Score: XXXXX"), timer bar, and timer text ("0:XX")
+- [x] **HUD-01**: HUD displays round label ("Round X / 3"), score ("Score: XXXXX"), timer bar, and timer text ("0:XX")
 - [ ] **HUD-02**: Countdown timer starts at `timeLimit` seconds for the current round and decrements each second
 - [ ] **HUD-03**: Timer bar shrinks proportionally; turns red (`TIMER_COLOR_URGENT`) when fewer than 10 seconds remain
 - [ ] **HUD-04**: Matching a pair awards 100 base points + streak bonus (50 per consecutive match, capped at +200)
@@ -78,7 +78,7 @@ Deferred to Phase 7 polish. Not in current roadmap phases.
 | FLIP-03 | Phase 4 | Complete |
 | FLIP-04 | Phase 4 | Complete |
 | FLIP-05 | Phase 4 | Complete |
-| HUD-01 | Phase 5 | Pending |
+| HUD-01 | Phase 5 | Complete |
 | HUD-02 | Phase 5 | Pending |
 | HUD-03 | Phase 5 | Pending |
 | HUD-04 | Phase 5 | Pending |

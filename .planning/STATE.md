@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: completed
-stopped_at: Phase 5 context gathered
-last_updated: "2026-03-11T14:07:42.104Z"
+stopped_at: Completed 05-01-PLAN.md
+last_updated: "2026-03-11T14:51:41.899Z"
 last_activity: 2026-03-11 — Phase 4 Plan 02 complete (evaluatePair with match lock, mismatch flip-back, full game loop — human-verify approved)
 progress:
   total_phases: 6
   completed_phases: 2
-  total_plans: 5
-  completed_plans: 5
+  total_plans: 7
+  completed_plans: 6
   percent: 50
 ---
 
@@ -56,6 +56,7 @@ Progress: [█████░░░░░] 50% (Phase 3 complete, 4 of ~8 total 
 | Phase 03-grid P03 | 3min | 2 tasks | 2 files |
 | Phase 04-flip-mechanics P01 | 7min | 1 tasks | 1 files |
 | Phase 04-flip-mechanics P02 | 6min | 2 tasks | 1 files |
+| Phase 05-hud-scoring P01 | 10min | 3 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -80,6 +81,9 @@ Recent decisions affecting current work:
 - [Phase 04-flip-mechanics]: isChecking reset timing: immediate in match branch, deferred to flipCardDown.onComplete in mismatch branch — must stay true during 800ms hold delay to block third-card clicks
 - [Phase 04-flip-mechanics P02]: tintContainer() helper iterates container children with runtime duck-type check — Phaser Container lacks setTint in TypeScript types (TS2339 under strict mode), making direct container.setTint() impossible
 - [Phase 04-flip-mechanics P02]: flippedIndices cleared in both evaluatePair branches — in mismatch branch, cleared inside delayedCall callback (not before) so indexA/indexB remain available for flipCardDown calls via closure capture
+- [Phase 05-hud-scoring]: HUD_SCORE_X uses literal 1004 (GAME_WIDTH - 20) to avoid import cycles between config files
+- [Phase 05-hud-scoring]: timerBarFill origin (0, 0.5) at left edge — Plan 02 shrinks width rightward without repositioning
+- [Phase 05-hud-scoring]: buildHud() called between drawBackground() and buildGrid() in create() to maintain correct depth z-order
 
 ### Pending Todos
 
@@ -91,6 +95,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-11T14:07:42.101Z
-Stopped at: Phase 5 context gathered
-Resume file: .planning/phases/05-hud-scoring/05-CONTEXT.md
+Last session: 2026-03-11T14:51:33.233Z
+Stopped at: Completed 05-01-PLAN.md
+Resume file: None

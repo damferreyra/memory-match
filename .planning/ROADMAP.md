@@ -120,5 +120,5 @@ Phases execute in numeric order: 3 → 4 → 5 → 6
 | 2. Boot + Menu Scenes | 1/1 | Complete | 2026-03-10 |
 | 3. Grid | 3/3 | Complete   | 2026-03-11 |
 | 4. Flip Mechanics | 2/2 | Complete   | 2026-03-11 |
-| 5. HUD + Scoring | 0/2 | Not started | - |
+| 5. HUD + Scoring | 1/2 | In Progress|  |
 | 6. Round System | 0/3 | Not started | - |
