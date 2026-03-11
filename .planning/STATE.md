@@ -3,9 +3,9 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 04-02 Task 1 — awaiting human-verify checkpoint for Task 2
-last_updated: "2026-03-11T13:17:29.214Z"
-last_activity: 2026-03-11 — Phase 4 Plan 01 complete (flip state machine, peek phase, isChecking guard — human-verify approved)
+stopped_at: Completed 04-02 — Phase 4 Flip Mechanics fully complete
+last_updated: "2026-03-11T13:30:00.000Z"
+last_activity: 2026-03-11 — Phase 4 Plan 02 complete (evaluatePair with match lock, mismatch flip-back, full game loop — human-verify approved)
 progress:
   total_phases: 6
   completed_phases: 2
@@ -26,9 +26,9 @@ See: .planning/PROJECT.md (updated 2026-03-10)
 ## Current Position
 
 Phase: 4 of 6 (Flip Mechanics)
-Plan: 1 of 2 in current phase (Plan 04-01 complete)
-Status: Phase 4 in progress — plan 04-01 complete, ready for 04-02
-Last activity: 2026-03-11 — Phase 4 Plan 01 complete (flip state machine, peek phase, isChecking guard — human-verify approved)
+Plan: 2 of 2 in current phase (Plan 04-02 complete — Phase 4 done)
+Status: Phase 4 complete — ready for Phase 5 (HUD, Timer, Scoring)
+Last activity: 2026-03-11 — Phase 4 Plan 02 complete (evaluatePair with match lock, mismatch flip-back, full game loop — human-verify approved)
 
 Progress: [█████░░░░░] 50% (Phase 3 complete, 4 of ~8 total plans complete)
 
@@ -55,7 +55,7 @@ Progress: [█████░░░░░] 50% (Phase 3 complete, 4 of ~8 total 
 | Phase 03-grid P02 | 5min | 2 tasks | 1 file |
 | Phase 03-grid P03 | 3min | 2 tasks | 2 files |
 | Phase 04-flip-mechanics P01 | 7min | 1 tasks | 1 files |
-| Phase 04-flip-mechanics P02 | 6min | 1 tasks | 1 files |
+| Phase 04-flip-mechanics P02 | 6min | 2 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -78,6 +78,8 @@ Recent decisions affecting current work:
 - [Phase 04-flip-mechanics]: evaluatePair() triggered from inside flipCardUp second tween onComplete (after card fully faceUp), not from handleCardClick
 - [Phase 04-flip-mechanics]: tintContainer() helper iterates container children with runtime duck-type check — Phaser Container lacks setTint in TypeScript types (TS2339 under strict mode)
 - [Phase 04-flip-mechanics]: isChecking reset timing: immediate in match branch, deferred to flipCardDown.onComplete in mismatch branch — must stay true during 800ms hold delay to block third-card clicks
+- [Phase 04-flip-mechanics P02]: tintContainer() helper iterates container children with runtime duck-type check — Phaser Container lacks setTint in TypeScript types (TS2339 under strict mode), making direct container.setTint() impossible
+- [Phase 04-flip-mechanics P02]: flippedIndices cleared in both evaluatePair branches — in mismatch branch, cleared inside delayedCall callback (not before) so indexA/indexB remain available for flipCardDown calls via closure capture
 
 ### Pending Todos
 
@@ -89,6 +91,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-11T13:17:29.211Z
-Stopped at: Completed 04-02 Task 1 — awaiting human-verify checkpoint for Task 2
+Last session: 2026-03-11T13:30:00.000Z
+Stopped at: Completed 04-02-PLAN.md — Phase 4 Flip Mechanics fully complete
 Resume file: None
