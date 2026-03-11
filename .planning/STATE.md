@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: in-progress
-stopped_at: "Completed 04-01-PLAN.md — ready for 04-02"
-last_updated: "2026-03-11T10:45:00.000Z"
-last_activity: 2026-03-10 — Phase 3 Plan 02 complete (GameScene grid rendering, visual verification passed)
+status: executing
+stopped_at: Completed 04-02 Task 1 — awaiting human-verify checkpoint for Task 2
+last_updated: "2026-03-11T13:17:29.214Z"
+last_activity: 2026-03-11 — Phase 4 Plan 01 complete (flip state machine, peek phase, isChecking guard — human-verify approved)
 progress:
   total_phases: 6
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 5
-  completed_plans: 4
+  completed_plans: 5
   percent: 50
 ---
 
@@ -55,6 +55,7 @@ Progress: [█████░░░░░] 50% (Phase 3 complete, 4 of ~8 total 
 | Phase 03-grid P02 | 5min | 2 tasks | 1 file |
 | Phase 03-grid P03 | 3min | 2 tasks | 2 files |
 | Phase 04-flip-mechanics P01 | 7min | 1 tasks | 1 files |
+| Phase 04-flip-mechanics P02 | 6min | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -75,6 +76,8 @@ Recent decisions affecting current work:
 - [Phase 03-grid]: Background gradient colors placed at end of config/ui.ts under a dedicated Background section — all hex color values in scene code come from named imports
 - [Phase 04-flip-mechanics]: flipCardDown referenced via void bind in evaluatePair stub to satisfy noUnusedLocals until plan 04-02 implements pair evaluation
 - [Phase 04-flip-mechanics]: evaluatePair() triggered from inside flipCardUp second tween onComplete (after card fully faceUp), not from handleCardClick
+- [Phase 04-flip-mechanics]: tintContainer() helper iterates container children with runtime duck-type check — Phaser Container lacks setTint in TypeScript types (TS2339 under strict mode)
+- [Phase 04-flip-mechanics]: isChecking reset timing: immediate in match branch, deferred to flipCardDown.onComplete in mismatch branch — must stay true during 800ms hold delay to block third-card clicks
 
 ### Pending Todos
 
@@ -86,6 +89,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-11T10:45:00.000Z
-Stopped at: Completed 04-01-PLAN.md — ready for 04-02
+Last session: 2026-03-11T13:17:29.211Z
+Stopped at: Completed 04-02 Task 1 — awaiting human-verify checkpoint for Task 2
 Resume file: None

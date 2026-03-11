@@ -20,8 +20,8 @@ Requirements for the complete playable game (Phases 3–6). Phases 1–2 already
 - [x] **FLIP-01**: Clicking a face-down card flips it face-up using a scaleX tween (1→0, swap content, 0→1)
 - [x] **FLIP-02**: Peek phase at round start: all 16 cards briefly show faces for `peekDuration` seconds, then flip back face-down
 - [x] **FLIP-03**: Player can flip at most 2 cards per turn; further clicks are blocked while a pair is being evaluated (`isChecking` guard)
-- [ ] **FLIP-04**: If two flipped cards match, they lock face-up and receive a visual matched state (de-saturated tint)
-- [ ] **FLIP-05**: If two flipped cards do not match, both flip back face-down after `MISMATCH_HOLD_MS` (800ms) delay
+- [x] **FLIP-04**: If two flipped cards match, they lock face-up and receive a visual matched state (de-saturated tint)
+- [x] **FLIP-05**: If two flipped cards do not match, both flip back face-down after `MISMATCH_HOLD_MS` (800ms) delay
 
 ### HUD & Scoring
 
@@ -76,8 +76,8 @@ Deferred to Phase 7 polish. Not in current roadmap phases.
 | FLIP-01 | Phase 4 | Complete |
 | FLIP-02 | Phase 4 | Complete |
 | FLIP-03 | Phase 4 | Complete |
-| FLIP-04 | Phase 4 | Pending |
-| FLIP-05 | Phase 4 | Pending |
+| FLIP-04 | Phase 4 | Complete |
+| FLIP-05 | Phase 4 | Complete |
 | HUD-01 | Phase 5 | Pending |
 | HUD-02 | Phase 5 | Pending |
 | HUD-03 | Phase 5 | Pending |

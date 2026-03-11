@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Bootstrap** - Project scaffold, toolchain, dev server confirmed running
 - [x] **Phase 2: Boot + Menu Scenes** - BootScene and MenuScene complete, registry initialized
 - [x] **Phase 3: Grid** - Config constants, pure game-logic functions, 16 face-down cards on canvas (gap closure in progress) (completed 2026-03-11)
-- [ ] **Phase 4: Flip Mechanics** - Peek phase, click-to-flip tween, match/mismatch evaluation loop
+- [x] **Phase 4: Flip Mechanics** - Peek phase, click-to-flip tween, match/mismatch evaluation loop (completed 2026-03-11)
 - [ ] **Phase 5: HUD + Scoring** - Round/score/timer HUD rendered, scoring rules applied, game-over event
 - [ ] **Phase 6: Round System** - UIScene overlay, round-complete and game-over panels, 3-round progression
 
@@ -119,6 +119,6 @@ Phases execute in numeric order: 3 → 4 → 5 → 6
 | 1. Bootstrap | 1/1 | Complete | 2026-03-10 |
 | 2. Boot + Menu Scenes | 1/1 | Complete | 2026-03-10 |
 | 3. Grid | 3/3 | Complete   | 2026-03-11 |
-| 4. Flip Mechanics | 1/2 | In Progress|  |
+| 4. Flip Mechanics | 2/2 | Complete   | 2026-03-11 |
 | 5. HUD + Scoring | 0/2 | Not started | - |
 | 6. Round System | 0/3 | Not started | - |
