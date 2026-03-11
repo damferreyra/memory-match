@@ -52,6 +52,7 @@ export class GameScene extends Phaser.Scene {
 	private timeLimit = 0;
 	private timeRemaining = 0;
 	private timerIsUrgent = false;
+	private currentStreak = 0;
 	private scoreText!: Phaser.GameObjects.Text;
 	private countdownText!: Phaser.GameObjects.Text;
 	private timerBarFill!: Phaser.GameObjects.Rectangle;
@@ -66,6 +67,7 @@ export class GameScene extends Phaser.Scene {
 		this.isChecking = false;
 		this.flippedIndices = [];
 		this.mismatchTimer = null;
+		this.currentStreak = 0;
 		this.drawBackground();
 		this.buildHud();
 		const symbolIds = generateCardPairs(SYMBOLS.length);
@@ -392,8 +394,15 @@ export class GameScene extends Phaser.Scene {
 			this.tintContainer(this.containers[indexA], CARD_MATCHED_TINT);
 			this.tintContainer(this.containers[indexB], CARD_MATCHED_TINT);
 			this.flippedIndices = [];
+			// Scoring — immediate update on match confirmation (not after tween)
+			const earned = computeMatchScore(this.currentStreak);
+			this.currentStreak++;
+			this.registry.inc(REGISTRY_KEYS.TOTAL_SCORE, earned);
+			this.scoreText.setText(`Score: ${this.registry.get(REGISTRY_KEYS.TOTAL_SCORE) as number}`);
 			this.isChecking = false;
 		} else {
+			// Reset streak on mismatch
+			this.currentStreak = 0;
 			// Schedule flip-back after hold delay
 			this.mismatchTimer = this.time.delayedCall(MISMATCH_HOLD_MS, () => {
 				this.flipCardDown(indexA);
