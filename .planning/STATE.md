@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: completed
-stopped_at: Completed 03-grid-03-PLAN.md
-last_updated: "2026-03-11T09:09:39.209Z"
+stopped_at: "Checkpoint 04-01 Task 2: awaiting human-verify for peek phase and flip animation"
+last_updated: "2026-03-11T09:37:28.352Z"
 last_activity: 2026-03-10 — Phase 3 Plan 02 complete (GameScene grid rendering, visual verification passed)
 progress:
   total_phases: 6
   completed_phases: 1
-  total_plans: 3
-  completed_plans: 3
+  total_plans: 5
+  completed_plans: 4
   percent: 50
 ---
 
@@ -54,6 +54,7 @@ Progress: [█████░░░░░] 50% (Phase 3 complete, 4 of ~8 total 
 | Phase 03-grid P01 | 5min | 2 tasks | 8 files |
 | Phase 03-grid P02 | 5min | 2 tasks | 1 file |
 | Phase 03-grid P03 | 3min | 2 tasks | 2 files |
+| Phase 04-flip-mechanics P01 | 7min | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -72,6 +73,8 @@ Recent decisions affecting current work:
 - [Phase 03-grid P02]: Container-per-card pattern — each card is a Container with layered back/question/front/symbol children
 - [Phase 03-grid P02]: CARD_QUESTION_FONT_SIZE and CARD_BORDER_WIDTH added to config/cards.ts to eliminate magic literals in scene code
 - [Phase 03-grid]: Background gradient colors placed at end of config/ui.ts under a dedicated Background section — all hex color values in scene code come from named imports
+- [Phase 04-flip-mechanics]: flipCardDown referenced via void bind in evaluatePair stub to satisfy noUnusedLocals until plan 04-02 implements pair evaluation
+- [Phase 04-flip-mechanics]: evaluatePair() triggered from inside flipCardUp second tween onComplete (after card fully faceUp), not from handleCardClick
 
 ### Pending Todos
 
@@ -83,6 +86,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-11T09:05:51.744Z
-Stopped at: Completed 03-grid-03-PLAN.md
+Last session: 2026-03-11T09:37:28.349Z
+Stopped at: Checkpoint 04-01 Task 2: awaiting human-verify for peek phase and flip animation
 Resume file: None
