@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Bootstrap** - Project scaffold, toolchain, dev server confirmed running
 - [x] **Phase 2: Boot + Menu Scenes** - BootScene and MenuScene complete, registry initialized
-- [x] **Phase 3: Grid** - Config constants, pure game-logic functions, 16 face-down cards on canvas
+- [ ] **Phase 3: Grid** - Config constants, pure game-logic functions, 16 face-down cards on canvas (gap closure in progress)
 - [ ] **Phase 4: Flip Mechanics** - Peek phase, click-to-flip tween, match/mismatch evaluation loop
 - [ ] **Phase 5: HUD + Scoring** - Round/score/timer HUD rendered, scoring rules applied, game-over event
 - [ ] **Phase 6: Round System** - UIScene overlay, round-complete and game-over panels, 3-round progression
@@ -55,11 +55,12 @@ Plans:
   1. All config constants exist in `config/cards.ts`, `config/grid.ts`, `config/rounds.ts`, `config/ui.ts` and are consumed without magic numbers anywhere in game code
   2. `npm run test` passes for `game-logic.test.ts` and `config/grid.test.ts`, confirming `generateCardPairs()` produces exactly 16 symbolIds (0–7 each appearing twice) and `getCardPosition()` returns correct pixel coords for all 16 indices
   3. Opening the game and clicking PLAY shows 16 face-down cards arranged in a 4x4 grid visually centered on the 1024x768 canvas
-**Plans**: 2 plans
+**Plans**: 3 plans
 
 Plans:
 - [x] 03-01-PLAN.md — Config files (cards, grid, rounds, ui) + game-logic.ts + Vitest tests (TDD)
 - [x] 03-02-PLAN.md — GameScene renders 4x4 grid of face-down cards (human-verify checkpoint)
+- [ ] 03-03-PLAN.md — Gap closure: add BG_GRADIENT_TOP/BOTTOM constants, remove inline hex literals from GameScene
 
 ### Phase 4: Flip Mechanics
 **Goal**: Players can flip cards and the full match/mismatch evaluation loop works correctly
@@ -117,7 +118,7 @@ Phases execute in numeric order: 3 → 4 → 5 → 6
 |-------|----------------|--------|-----------|
 | 1. Bootstrap | 1/1 | Complete | 2026-03-10 |
 | 2. Boot + Menu Scenes | 1/1 | Complete | 2026-03-10 |
-| 3. Grid | 2/2 | Complete | 2026-03-10 |
+| 3. Grid | 2/3 | Gap closure in progress | - |
 | 4. Flip Mechanics | 0/2 | Not started | - |
 | 5. HUD + Scoring | 0/2 | Not started | - |
 | 6. Round System | 0/3 | Not started | - |
