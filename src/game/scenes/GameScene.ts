@@ -10,6 +10,7 @@ import {
 	CARD_FACE_BG,
 	CARD_FACE_BORDER,
 	CARD_QUESTION_FONT_SIZE,
+	CARD_MATCHED_TINT,
 	SYMBOLS,
 	SYMBOL_COLORS,
 	SYMBOL_FONT_SIZE,
@@ -17,8 +18,8 @@ import {
 import type { Symbol as CardSymbol } from '../config/cards';
 import { GRID_LAYOUT, getCardPosition } from '../config/grid';
 import { ROUND_CONFIGS } from '../config/rounds';
-import { CARD_DEPTH, BG_GRADIENT_TOP, BG_GRADIENT_BOTTOM, FLIP_DURATION_MS } from '../config/ui';
-import { type CardData, generateCardPairs } from '../game-logic';
+import { CARD_DEPTH, BG_GRADIENT_TOP, BG_GRADIENT_BOTTOM, FLIP_DURATION_MS, MISMATCH_HOLD_MS } from '../config/ui';
+import { type CardData, generateCardPairs, isMatch } from '../game-logic';
 
 export class GameScene extends Phaser.Scene {
 	private cards: CardData[] = [];
@@ -232,11 +233,39 @@ export class GameScene extends Phaser.Scene {
 		});
 	}
 
+	private tintContainer(container: Phaser.GameObjects.Container, tint: number): void {
+		// Container does not expose setTint in Phaser's TypeScript types,
+		// so tint is applied to each child that implements the Tint component.
+		container.each((child: Phaser.GameObjects.GameObject) => {
+			if ('setTint' in child && typeof (child as unknown as { setTint: unknown }).setTint === 'function') {
+				(child as unknown as { setTint: (v: number) => void }).setTint(tint);
+			}
+		});
+	}
+
 	private evaluatePair(): void {
-		// Stub — fully implemented in plan 04-02.
-		// flipCardDown is called from evaluatePair on mismatch; reference here
-		// prevents noUnusedLocals error until plan 04-02 completes the logic.
-		void this.flipCardDown.bind(this);
+		const [indexA, indexB] = this.flippedIndices;
+		const cardA = this.cards[indexA];
+		const cardB = this.cards[indexB];
+
+		if (isMatch(cardA.symbolId, cardB.symbolId)) {
+			// Lock both cards as matched
+			cardA.state = 'matched';
+			cardB.state = 'matched';
+			this.tintContainer(this.containers[indexA], CARD_MATCHED_TINT);
+			this.tintContainer(this.containers[indexB], CARD_MATCHED_TINT);
+			this.flippedIndices = [];
+			this.isChecking = false;
+		} else {
+			// Schedule flip-back after hold delay
+			this.mismatchTimer = this.time.delayedCall(MISMATCH_HOLD_MS, () => {
+				this.flipCardDown(indexA);
+				this.flipCardDown(indexB);
+				this.flippedIndices = [];
+				// isChecking will be reset to false inside flipCardDown's onComplete
+				// Both tweens run in parallel; setting false twice is idempotent
+			});
+		}
 	}
 
 	private handleShutdown(): void {
