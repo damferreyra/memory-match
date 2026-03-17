@@ -43,7 +43,7 @@ See: .planning/PROJECT.md (updated 2026-03-10)
 Phase: 6 of 6 (Round System)
 Plan: 1 of 2 in current phase (06-01 complete; next up 06-02)
 Status: Executing Phase 6 — Plan 06-02 (UIScene overlays) is ready after round win events
-Last activity: 2026-03-11 — Phase 6 Plan 01 complete (round win + events implemented)
+Last activity: 2026-03-17 - Completed quick task 260317-phv: we need to investigate why some times (if a click quicky) the turn animation is executed twice when the card is flip back
 
 Progress: [█████████░] 89% (Phases 1–5 implemented, Phase 6 halfway complete with 1 plan remaining)
 
@@ -112,6 +112,12 @@ None yet.
 ### Blockers/Concerns
 
 None yet.
+
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 260317-phv | we need to investigate why some times (if a click quicky) the turn animation is executed twice when the card is flip back | 2026-03-17 | ff5e0c2 | [260317-phv-we-need-to-investigate-why-some-times-if](.planning/quick/260317-phv-we-need-to-investigate-why-some-times-if/) |
 
 ## Session Continuity
 
