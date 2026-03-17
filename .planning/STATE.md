@@ -3,6 +3,21 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
+stopped_at: Completed quick/260317-phv-PLAN.md
+last_updated: "2026-03-17T17:25:25.826Z"
+last_activity: 2026-03-11 — Phase 6 Plan 01 complete (round win + events implemented)
+progress:
+  total_phases: 6
+  completed_phases: 3
+  total_plans: 9
+  completed_plans: 8
+---
+
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+status: executing
 stopped_at: Completed 06-01-PLAN.md
 last_updated: "2026-03-11T18:40:00.000Z"
 last_activity: 2026-03-11 — Phase 6 Plan 01 complete (round win + events implemented)
@@ -88,6 +103,7 @@ Recent decisions affecting current work:
 - [Phase 05-hud-scoring]: startTimer() called in startPeekPhase callback not create() — peek window does not consume player countdown time
 - [Phase 05-hud-scoring]: timerIsUrgent flag prevents calling setFillStyle on every tick — only transitions once crossing 10s threshold
 - [Phase 05-hud-scoring]: onTimeExpired() sets isChecking=true permanently to block all future card clicks after timer expires
+- [Phase quick]: pendingFlipDowns counter (not boolean) guards both parallel flip-down tweens — isChecking only clears when counter reaches 0
 
 ### Pending Todos
 
@@ -99,6 +115,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-11T18:40:00.000Z
-Stopped at: Completed 06-01-PLAN.md
+Last session: 2026-03-17T17:25:20.150Z
+Stopped at: Completed quick/260317-phv-PLAN.md
 Resume file: None
