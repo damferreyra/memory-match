@@ -312,7 +312,11 @@ export class GameScene extends Phaser.Scene {
 					duration: FLIP_DURATION_MS,
 					ease: 'Linear',
 					onComplete: () => {
-						card.state = 'faceUp';
+						// Guard: evaluatePair() may have already set this card to 'matched'
+						// when both flip-up tweens complete on the same frame. Don't overwrite it.
+						if (card.state === 'flippingUp') {
+							card.state = 'faceUp';
+						}
 						if (this.flippedIndices.length === 2) {
 							this.evaluatePair();
 						}
@@ -394,7 +398,10 @@ export class GameScene extends Phaser.Scene {
 	}
 
 	private evaluatePair(): void {
+		// Guard: if both flip-up tweens complete on the same frame, only the first call proceeds.
+		if (this.flippedIndices.length < 2) return;
 		const [indexA, indexB] = this.flippedIndices;
+		this.flippedIndices = []; // Clear immediately — prevents re-entry from the second simultaneous tween
 		const cardA = this.cards[indexA];
 		const cardB = this.cards[indexB];
 
@@ -404,7 +411,6 @@ export class GameScene extends Phaser.Scene {
 			cardB.state = 'matched';
 			this.tintContainer(this.containers[indexA], CARD_MATCHED_TINT);
 			this.tintContainer(this.containers[indexB], CARD_MATCHED_TINT);
-			this.flippedIndices = [];
 			// Scoring — immediate update on match confirmation (not after tween)
 			const earned = computeMatchScore(this.currentStreak);
 			this.currentStreak++;
@@ -420,7 +426,6 @@ export class GameScene extends Phaser.Scene {
 				this.pendingFlipDowns = 2;
 				this.flipCardDown(indexA);
 				this.flipCardDown(indexB);
-				this.flippedIndices = [];
 				// isChecking is reset to false only after BOTH flip-down animations complete
 			});
 		}

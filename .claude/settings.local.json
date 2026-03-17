@@ -9,7 +9,8 @@
       "Bash(npx tsc:*)",
       "Bash(sed:*)",
       "Bash(git:*)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(python3 -c \":*)"
     ]
   }
 }
