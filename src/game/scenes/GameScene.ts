@@ -47,6 +47,7 @@ export class GameScene extends Phaser.Scene {
 	private containers: Phaser.GameObjects.Container[] = [];
 	private isChecking = false;
 	private flippedIndices: number[] = [];
+	private pendingFlipDowns = 0;
 	private mismatchTimer: Phaser.Time.TimerEvent | null = null;
 	private timerEvent: Phaser.Time.TimerEvent | null = null;
 	private timeLimit = 0;
@@ -68,6 +69,7 @@ export class GameScene extends Phaser.Scene {
 		this.isChecking = false;
 		this.flippedIndices = [];
 		this.mismatchTimer = null;
+		this.pendingFlipDowns = 0;
 		this.currentStreak = 0;
 		this.roundScore = 0;
 		this.drawBackground();
@@ -338,7 +340,10 @@ export class GameScene extends Phaser.Scene {
 					ease: 'Linear',
 					onComplete: () => {
 						card.state = 'faceDown';
-						this.isChecking = false;
+						this.pendingFlipDowns--;
+						if (this.pendingFlipDowns <= 0) {
+							this.isChecking = false;
+						}
 					},
 				});
 			},
@@ -412,11 +417,11 @@ export class GameScene extends Phaser.Scene {
 			this.currentStreak = 0;
 			// Schedule flip-back after hold delay
 			this.mismatchTimer = this.time.delayedCall(MISMATCH_HOLD_MS, () => {
+				this.pendingFlipDowns = 2;
 				this.flipCardDown(indexA);
 				this.flipCardDown(indexB);
 				this.flippedIndices = [];
-				// isChecking will be reset to false inside flipCardDown's onComplete
-				// Both tweens run in parallel; setting false twice is idempotent
+				// isChecking is reset to false only after BOTH flip-down animations complete
 			});
 		}
 	}
